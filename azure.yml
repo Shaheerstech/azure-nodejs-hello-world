@@ -43,6 +43,8 @@ stages:
         script: |
           #!/bin/bash
 
+          
+
           # Set Project that container is related to, defaults to Misc
           if [ -z ${DEP_PROJECT+x} ]; then
             DEP_PROJECT='misc'
@@ -82,15 +84,18 @@ stages:
 
           # Build the Docker image with the given name, with or without cache
           if [ "$USE_CACHE" = true ]; then
-              docker build -t "$IMAGE_NAME" --shm-size="$SHM_SIZE" "$BUILD_CONTEXT"
+
+                # Build the Docker image using the Dockerfile
+                 docker build -t "$IMAGE_NAME" --shm-size="$SHM_SIZE" -f Dockerfile "$BUILD_CONTEXT"
+
           else
               docker build --no-cache -t "$IMAGE_NAME" --shm-size="$SHM_SIZE" "$BUILD_CONTEXT"
           fi
 
           # Add the tags to the image
           for tag in $TAGS; do
-              docker tag "$IMAGE_NAME" "$IMAGE_NAME:$tag"
-              echo "Tagging Image $IMAGE_NAME:$tag"
+             docker tag "$IMAGE_NAME" "$IMAGE_NAME:$tag"
+          echo "Tagging Image $IMAGE_NAME:$tag"
           done
 
           # Set the name of the container
