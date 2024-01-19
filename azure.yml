@@ -108,4 +108,4 @@ stages:
               fi
           fi
 
-        workingDirectory: 'src/'
+        workingDirectory: '$(Build.SourcesDirectory)'
