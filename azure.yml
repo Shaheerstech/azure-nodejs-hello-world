@@ -85,8 +85,7 @@ stages:
           # Build the Docker image with the given name, with or without cache
           if [ "$USE_CACHE" = true ]; then
 
-                # Build the Docker image using the Dockerfile
-                 docker build -t "$IMAGE_NAME" --shm-size="$SHM_SIZE" -f Dockerfile "$BUILD_CONTEXT"
+               docker build -t "$IMAGE_NAME" --shm-size="$SHM_SIZE" "$BUILD_CONTEXT"
 
           else
               docker build --no-cache -t "$IMAGE_NAME" --shm-size="$SHM_SIZE" "$BUILD_CONTEXT"
@@ -95,7 +94,7 @@ stages:
           # Add the tags to the image
           for tag in $TAGS; do
              docker tag "$IMAGE_NAME" "$IMAGE_NAME:$tag"
-          echo "Tagging Image $IMAGE_NAME:$tag"
+              echo "Tagging Image $IMAGE_NAME:$tag"
           done
 
           # Set the name of the container
