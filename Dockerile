@@ -1,4 +1,33 @@
 # Use an official Node runtime as a parent image
+FROM node:14.17.6-alpine
+
+# Set the working directory to /usr/src/app
+WORKDIR /usr/src/app
+
+# Copy only the package.json and package-lock.json files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --only=production
+
+# Copy the rest of the application files
+COPY . .
+
+# Make port 3000 available to the world outside this container
+EXPOSE 3000
+
+# Define environment variable
+ENV NAME World
+
+# Add a non-root user
+RUN adduser -D myuser
+
+# Set the user for subsequent commands
+USER myuser
+
+# Run app.js when the container launches
+CMD ["node", "app.js"]
+# Use an official Node runtime as a parent image
 FROM node:14
 
 # Set the working directory to /usr/src/app
