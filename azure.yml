@@ -54,7 +54,7 @@ stages:
           DEP_NAME="myapp"
 
           # Set the build context
-          BUILD_CONTEXT="Dockerile/"
+          BUILD_CONTEXT="Dockerfile/"
 
           # Set the tags you want to add to the image
           TAGS="latest"
